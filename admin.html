@@ -7,6 +7,7 @@
     <meta>
     <meta>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>CRUD-Administración</title>
 </head>
 <body>
@@ -51,13 +52,13 @@
                 </div>
                 <div class="my-3">
                     <label for="precio" class="form-label" >Precio</label>
-                    <input id="precio" type="text" class="form-control" placeholder="Ingrese el precio" minlength="1" maxlength="50" required>
+                    <input id="precio" type="text" class="form-control" placeholder="Ingrese el precio, por favor utilize ´,´ para los decimales" minlength="1" maxlength="50" required>
                 </div>
                 <div class="my-3">
                     <label for="imgURL" class="form-label" >URL Imagen</label>
                     <input id="imgURL" type="text" class="form-control" placeholder="Ingrese la URL" minlength="1" maxlength="200" required>
                 </div>
-                <button type="submit" class=" my-3 btn btn-primary">Guardar</button>
+                <button class=" my-3 btn btn-primary">Guardar</button>
             </form>
         </section>
         <hr>
@@ -99,6 +100,6 @@
     <footer>
 
     </footer>
-    <script src="./js/bootstrap.min.js"></script>
+    <script type="module" src="./js/admin.js"></script>
 </body>
 </html>
