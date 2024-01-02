@@ -1,6 +1,6 @@
 import { validarInputRequerido, validarInputDescripcion, validarInputPrecio, validarInputUrl, validarTodo, obtenerCodigoAleatorio } from "./hellpers.js";
 
-let arrProductos=JSON.parse(localStorage.getItem("productos"))||[]
+let arrayProductos=JSON.parse(localStorage.getItem("productos"))||[]
 let bodyTabla=document.querySelector("tbody")
 let inputCodigo=document.getElementById("codigo");
 let inputNombre=document.getElementById("nombre");
@@ -57,7 +57,7 @@ function CrearProducto() {
         precio: inputPrecio.value,
         imgUrl: inputImgURL.value
     };
-    arrProductos.push(nuevoProducto);
+    arrayProductos.push(nuevoProducto);
     Swal.fire({
         title: "Exito",
         text: "El producto se guardo correctamente",
@@ -67,8 +67,8 @@ function CrearProducto() {
     bodyTabla.innerHTML="";
     ListarProductos();
 };
-
-function LimpiarFormulario() {
+//con esta forma declaramos una funcion global
+window.LimpiarFormulario=function() {
     form.reset();
     inputCodigo.className="form-control"
     inputCodigo.value=obtenerCodigoAleatorio()
@@ -84,7 +84,7 @@ function GuardarLocalStorage() {
 }
 
 function ListarProductos() {
-    arrProductos.forEach(element => {
+    arrayProductos.forEach(element => {
         bodyTabla.innerHTML += `<tr>
         <th scope="row">${element.codigo}</th>
         <td>${element.nombre}</td>
