@@ -49,3 +49,7 @@ export function validarTodo(inpCodigo, inpNombre, inpDescripcion, inpPrecio, inp
         return false
     }
 }
+
+export function obtenerCodigoAleatorio() {
+    return window.crypto.randomUUID();
+}
