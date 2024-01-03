@@ -1,4 +1,4 @@
-import { validarInputRequerido, validarInputDescripcion, validarInputPrecio, validarInputUrl, validarTodo, obtenerCodigoAleatorio } from "./hellpers.js";
+import { validarInputRequerido, validarInputDescripcion, validarInputPrecio, validarInputUrl, validarTodo, obtenerCodigoAleatorio, getRolUserLog } from "./hellpers.js";
 
 let arrayProductos=JSON.parse(localStorage.getItem("productos"))||[]
 let bodyTabla=document.querySelector("tbody")
@@ -181,3 +181,12 @@ window.BorrarProducto=function(codigo) {
      })
 }
 
+function checkAdmin() {
+    const role=getRolUserLog();
+  
+    if (role!=="Admin") {
+      window.location.replace("/index.html")
+    }
+  };
+
+  checkAdmin();

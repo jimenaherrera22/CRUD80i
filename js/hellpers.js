@@ -53,3 +53,17 @@ export function validarTodo(inpCodigo, inpNombre, inpDescripcion, inpPrecio, inp
 export function obtenerCodigoAleatorio() {
     return window.crypto.randomUUID();
 }
+
+export function getRolUserLog() {
+    const user=JSON.parse(sessionStorage.getItem("user"));
+
+    if (user!==null) {
+        return user.role
+    }else{
+        return "invitado"
+    };
+     };
+
+export function saveUserLog(user) {
+    sessionStorage.setItem("user",JSON.stringify(user));
+};

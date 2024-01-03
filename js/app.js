@@ -1,3 +1,8 @@
+import { userAdmin } from "./user.js";
+import { saveUserLog, getRolUserLog } from "./hellpers.js";
+
+let adminLi=document.getElementById("adminLi");
+checkAdmin();
 let cardProductos=document.getElementById("cardProductos")
 console.log(cardProductos);
 
@@ -17,3 +22,20 @@ function CrearCards() {
 };
 
 CrearCards();
+
+window.Login=function() {
+  saveUserLog(userAdmin);
+ checkAdmin();
+};
+
+window.LogOut=function(){
+  sessionStorage.removeItem("user");
+  adminLi.className="nav-item d-none"
+}
+function checkAdmin() {
+  const role=getRolUserLog();
+
+  if (role==="Admin") {
+    adminLi.className="nav-item"
+  }
+}
