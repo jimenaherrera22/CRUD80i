@@ -36,10 +36,14 @@ inputImgURL.addEventListener("blur",()=>{
 //Llamamos a la funcion Listar Productos para crear filas en nuestra tabla
 ListarProductos();
 
+let esEdicion=false;
 function GuardarProducto(e) { //e=event
     e.preventDefault();
     if (validarTodo(inputCodigo, inputNombre, inputDescripcion, inputPrecio, inputImgURL)) {
-        CrearProducto();
+        if (esEdicion) {
+            GuardarProductoEditado();
+        }else{
+        CrearProducto(); }
     }else{
         Swal.fire({
             title: "Ups",
@@ -64,9 +68,46 @@ function CrearProducto() {
         icon: "success"
       });
     LimpiarFormulario();
-    bodyTabla.innerHTML="";
     ListarProductos();
 };
+
+function GuardarProductoEditado() {
+    let indexProducto=arrayProductos.findIndex((element)=>{
+        return element.codigo===inputCodigo.value
+    });
+    if (indexProducto !== -1) {
+        Swal.fire({
+            title: "¿Estas seguro?",
+            text: "Vas a cambiar los datos de un producto",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Guardar!",
+            cancelButtonText: "Cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+                arrayProductos[indexProducto].codigo=inputCodigo.value;
+                arrayProductos[indexProducto].nombre=inputNombre.value;
+                arrayProductos[indexProducto].descripcion=inputDescripcion.value;
+                arrayProductos[indexProducto].precio=inputPrecio.value;
+                arrayProductos[indexProducto].imgUrl=inputImgURL.value;
+                esEdicion=false;
+                Swal.fire({
+                    title: "Exito",
+                    text: "El producto se actualizo correctamente",
+                    icon: "success"  });
+                LimpiarFormulario();
+                ListarProductos();
+            }else{
+                esEdicion=false;
+                LimpiarFormulario();
+            }
+          });
+    }else{
+        console.log("entro en el else de guardar producto por que el codigo no existe dentro el arrProductos");
+    }
+ }
 //con esta forma declaramos una funcion global
 window.LimpiarFormulario=function() {
     form.reset();
@@ -80,10 +121,11 @@ window.LimpiarFormulario=function() {
 };
 
 function GuardarLocalStorage() {
-    localStorage.setItem("productos", JSON.stringify(arrProductos));
+    localStorage.setItem("productos", JSON.stringify(arrayProductos));
 }
 
 function ListarProductos() {
+    bodyTabla.innerHTML="";
     arrayProductos.forEach(element => {
         bodyTabla.innerHTML += `<tr>
         <th scope="row">${element.codigo}</th>
@@ -92,10 +134,26 @@ function ListarProductos() {
         <td>${element.precio}</td>
         <td> <a href="${element.imgUrl}" target="blank" title="Ver Imagen">${element.imgUrl}</a></td>
         <td>
-            <button type="button" class="btn btn-warning mx-1">Editar</button>
+        <div class="d-flex">
+        <a href='#titulo' class="btn btn-warning mx-1" onclick="PrepararEdicion('${element.codigo}')">Editar</a>
             <button type="button"  class="btn btn-danger mx-1">Eliminar</button>
+        </div>
         </td>
        </tr>`
     });
+};
+
+window.PrepararEdicion=function(codigo) {
+    const productoAEditar=arrayProductos.find((element)=>{
+        return element.codigo===codigo;
+    });
+    if (productoAEditar !== undefined) {
+        inputCodigo.value=productoAEditar.codigo;
+        inputNombre.value=productoAEditar.nombre;
+        inputDescripcion.value=productoAEditar.descripcion;
+        inputPrecio.value=productoAEditar.precio;
+        inputImgURL.value=productoAEditar.imgUrl;
+    }
+    esEdicion=true;
 }
 
