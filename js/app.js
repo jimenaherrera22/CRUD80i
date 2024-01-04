@@ -1,5 +1,9 @@
+import { checkAdmin } from "./user.js";
+
+let adminLi=document.getElementById("adminLi");
+checkAdmin(adminLi);
 let cardProductos=document.getElementById("cardProductos")
-console.log(cardProductos);
+// console.log(cardProductos);
 
 function CrearCards() {
     const arrayProductos=JSON.parse(localStorage.getItem("productos"))||[]
@@ -17,3 +21,6 @@ function CrearCards() {
 };
 
 CrearCards();
+
+
+
