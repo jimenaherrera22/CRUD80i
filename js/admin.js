@@ -1,4 +1,7 @@
 import { validarInputRequerido, validarInputDescripcion, validarInputPrecio, validarInputUrl, validarTodo, obtenerCodigoAleatorio, getRolUserLog } from "./hellpers.js";
+import { checkAdmin } from "./user.js";
+let adminLi=document.getElementById("adminLi");
+checkAdmin(adminLi);
 
 let arrayProductos=JSON.parse(localStorage.getItem("productos"))||[]
 let bodyTabla=document.querySelector("tbody")
@@ -181,7 +184,7 @@ window.BorrarProducto=function(codigo) {
      })
 }
 
-function checkAdmin() {
+ export function validatRole() {
     const role=getRolUserLog();
   
     if (role!=="Admin") {
@@ -189,4 +192,4 @@ function checkAdmin() {
     }
   };
 
-  checkAdmin();
+  validatRole();

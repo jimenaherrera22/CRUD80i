@@ -65,5 +65,5 @@ export function getRolUserLog() {
      };
 
 export function saveUserLog(user) {
-    sessionStorage.setItem("user",JSON.stringify(user));
+    sessionStorage.setItem("user", JSON.stringify(user));
 };
