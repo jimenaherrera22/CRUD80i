@@ -11,7 +11,7 @@ let inputDescripcion=document.getElementById("descripcion");
 let inputPrecio=document.getElementById("precio");
 let inputImgURL=document.getElementById("imgURL");
 
-let form=document.querySelector("form");
+let form=document.getElementById("formProductos")
 
 form.addEventListener("submit", GuardarProducto);
 
